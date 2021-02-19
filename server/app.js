@@ -20,5 +20,5 @@ mongoose.connection.once("open", () =>
   console.log("MongoDB database connection established successfully")
 )
 
-console.log('Server started!!!');
+console.log('Server started on:',PORT);
 app.listen(PORT);
