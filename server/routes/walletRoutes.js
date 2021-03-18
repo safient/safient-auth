@@ -6,6 +6,11 @@ const jwt = require('jsonwebtoken');
 const Web3 = require('web3');
 const web3 = new Web3();
 
+/**
+ * Verify JWT token before making subsequent request
+ * @param req
+ * @returns {Promise<boolean>}
+ */
 const verifyToken = async (req)=>{
     const token = req.headers['x-access-token'];
     if (!token){
@@ -21,6 +26,14 @@ const verifyToken = async (req)=>{
 
 module.exports = (app) => {
 
+    /**
+     * Create new wallet
+     * Inputs:
+     * token: Access token,
+     * userEmail: user email-id,
+     * secret: for wallet,
+     * walletPass: for encrypting the wallet
+     * */
     app.post('/api/create', async (req, res) => {
         try {
             const tokenStatus = await verifyToken(req)
@@ -54,7 +67,12 @@ module.exports = (app) => {
         }
     })
 
-    //just to test if wallet is created on not
+    /**
+     * Check wallet created or not
+     * Inputs:
+     * token: Access token,
+     * userEmail: user email-id
+     * */
     app.post('/api/getWallet', async (req, res) => {
         try {
             const tokenStatus = await verifyToken(req)
@@ -82,6 +100,13 @@ module.exports = (app) => {
         }
     })
 
+    /**
+     * Get all the accounts
+     * Inputs:
+     * token: Access token,
+     * userEmail: user email-id,
+     * walletPass: for decrypting the wallet
+     * */
     app.post('/api/accounts', async (req, res) => {
         try {
             const tokenStatus = await verifyToken(req)
@@ -111,6 +136,13 @@ module.exports = (app) => {
         }
     })
 
+    /**
+     * Sign the message
+     * Inputs:
+     * token: Access token,
+     * account: wallet account for signing,
+     * paramsHash: message hash
+     * */
     app.post('/api/sign', async (req, res) => {
         try {
             const tokenStatus = await verifyToken(req)

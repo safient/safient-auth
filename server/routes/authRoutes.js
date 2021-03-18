@@ -4,6 +4,9 @@ const {getUser, saveUser} = require('../db/mongo')
 
 module.exports = (app) =>{
 
+    /**
+     * Create new user
+     */
     app.post('/api/register', async (req, res)=>{
         try {
             const {email, pass} = req.body
@@ -21,6 +24,9 @@ module.exports = (app) =>{
         }
     })
 
+    /**
+     * Login user and return jwt-Token
+     */
     app.post('/api/login', async (req, res)=>{
         try {
             const {email, pass} = req.body
